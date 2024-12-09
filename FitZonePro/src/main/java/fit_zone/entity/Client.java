@@ -62,12 +62,11 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", memberNumber=" + memberNumber +
-                '}';
+        return "Client[ " +
+                "[id]=" + id +
+                ", [name]=" + name +
+                ", [surName]=" + surName +
+                ", [memberNumber]=" + memberNumber;
     }
 
     @Override

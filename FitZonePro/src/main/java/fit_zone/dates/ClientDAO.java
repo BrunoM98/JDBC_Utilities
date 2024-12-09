@@ -52,6 +52,31 @@ public class ClientDAO implements iClientDAO{
 
     @Override
     public boolean searchClient(Client client) {
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = getConnect();
+        String query = "SELECT * FROM client WHERE idclient = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            // El valor de cliente id se introduce sobre ? en la query
+            ps.setInt(1,client.getId());
+            rs = ps.executeQuery();
+            if (rs.next()){
+                client.setName(rs.getString("name"));
+                client.setSurName(rs.getString("surname"));
+                client.setMemberNumber(rs.getInt("member"));
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error to query searchClient " + e.getMessage());
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error to close data base " + e.getMessage());
+            }
+        }
         return false;
     }
 
@@ -69,4 +94,5 @@ public class ClientDAO implements iClientDAO{
     public boolean deleteClient(Client client) {
         return false;
     }
+
 }
