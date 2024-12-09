@@ -1,6 +1,5 @@
 package fit_zone.dates;
 
-import fit_zone.connection.Connect;
 import fit_zone.entity.Client;
 
 import java.sql.Connection;
@@ -34,7 +33,7 @@ public class ClientDAO implements iClientDAO{
                 client.setId(rs.getInt("idclient"));
                 client.setName(rs.getString("name"));
                 client.setSurName(rs.getString("surname"));
-                client.setMemberNumber(rs.getInt("member"));
+                client.setMember(rs.getInt("member"));
                 clients.add(client);
             }
         } catch (Exception e) {
@@ -64,7 +63,7 @@ public class ClientDAO implements iClientDAO{
             if (rs.next()){
                 client.setName(rs.getString("name"));
                 client.setSurName(rs.getString("surname"));
-                client.setMemberNumber(rs.getInt("member"));
+                client.setMember(rs.getInt("member"));
                 return true;
             }
         } catch (Exception e) {
@@ -82,16 +81,78 @@ public class ClientDAO implements iClientDAO{
 
     @Override
     public boolean insertClient(Client client) {
+        PreparedStatement ps;
+        Connection conn = getConnect();
+        String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, client.getName());
+            ps.setString(2, client.getSurName());
+            ps.setInt(3,client.getMember());
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error to insert client " + e.getMessage());
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                System.out.println("Error to close data base " + e.getMessage());
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean modifyClient(Client client) {
+        PreparedStatement ps;
+        Connection conn = getConnect();
+        // name 1 surname 2 member 3 id 4
+        String query = "UPDATE client SET name=?, surname=?, member=? " + " WHERE idclient = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, client.getName());
+            ps.setString(2, client.getSurName());
+            ps.setInt(3,client.getMember());
+            ps.setInt(4,client.getId());
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error to modify client " + e.getMessage());
+        }
+        finally {
+            try {
+
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error to close data base");
+            }
+        }
         return false;
     }
 
     @Override
     public boolean deleteClient(Client client) {
+        PreparedStatement ps;
+        Connection conn = getConnect();
+        String query = "DELETE FROM client WHERE idclient = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1,client.getId());
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error to delete client " + e.getMessage());
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error to lose data base " + e.getMessage());
+            }
+        }
         return false;
     }
 

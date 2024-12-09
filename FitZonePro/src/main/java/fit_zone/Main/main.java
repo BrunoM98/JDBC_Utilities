@@ -9,11 +9,11 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
         Client client = new Client(3);
+        Client client1 = new Client("Martin","Perez",500);
+        Client client2 = new Client("Palkia" , 1, "Registeel" ,900);
+        Client client3 = new Client(5);
         iClientDAO clientDAO = new ClientDAO();
 
-        System.out.println("List Clients");
-        List<Client> cli = clientDAO.clientList();
-        cli.forEach(System.out::println);
 
         System.out.println("Search client for id");
         System.out.println(client);
@@ -24,5 +24,31 @@ public class main {
         }else{
             System.out.println("Client Not Found " + client.getId());
         }
+
+       Boolean added = clientDAO.insertClient(client1);
+        if(added){
+            System.out.println("Client inserted successfully " + client1);
+        }else{
+            System.out.println("Client wasn’t added. " + client1);
+        }
+        boolean addeds = clientDAO.modifyClient(client2);
+        if (addeds){
+            System.out.println("Client modified" + client2);
+        }else{
+            System.out.println("Client not modify: " + client2);
+        }
+
+        boolean adde = clientDAO.deleteClient(client3);
+        if (adde){
+            System.out.println("Delete client " + client3);
+        }else{
+            System.out.println("Wasn’t delete client " + client3);
+        }
+
+
+        System.out.println("List Clients");
+        List<Client> cli = clientDAO.clientList();
+        cli.forEach(System.out::println);
+
     }
 }

@@ -6,7 +6,7 @@ public class Client {
     private int id;
     private String name;
     private String surName;
-    private int memberNumber;
+    private int member;
 
     public Client() {
     }
@@ -18,14 +18,14 @@ public class Client {
     public Client(String name, String surName, int memberNumber) {
         this.name = name;
         this.surName = surName;
-        this.memberNumber = memberNumber;
+        this.member = memberNumber;
     }
 
     public Client(String name, int id, String surName, int memberNumber) {
         this.name = name;
         this.id = id;
         this.surName = surName;
-        this.memberNumber = memberNumber;
+        this.member = memberNumber;
     }
 
     public int getId() {
@@ -52,12 +52,12 @@ public class Client {
         this.surName = surName;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public int getMember() {
+        return member;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMember(int member) {
+        this.member = member;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Client {
                 "[id]=" + id +
                 ", [name]=" + name +
                 ", [surName]=" + surName +
-                ", [memberNumber]=" + memberNumber;
+                ", [member]=" + member;
     }
 
     @Override
@@ -74,11 +74,11 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return id == client.id && memberNumber == client.memberNumber && Objects.equals(name, client.name) && Objects.equals(surName, client.surName);
+        return id == client.id && member == client.member && Objects.equals(name, client.name) && Objects.equals(surName, client.surName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surName, memberNumber);
+        return Objects.hash(id, name, surName, member);
     }
 }
