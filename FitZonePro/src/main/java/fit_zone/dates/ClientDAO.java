@@ -7,12 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static fit_zone.connection.Connect.getConnect;
 
-public class ClientDAO implements iClientDAO{
+public class ClientDAO implements iClientDAO {
 
     Scanner read = new Scanner(System.in);
     boolean flag = false;
@@ -27,7 +28,7 @@ public class ClientDAO implements iClientDAO{
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 //It has to be inside the while loop because it creates a new instance in memory every time it iterates.
                 Client client = new Client();
                 client.setId(rs.getInt("idclient"));
@@ -38,8 +39,7 @@ public class ClientDAO implements iClientDAO{
             }
         } catch (Exception e) {
             System.out.println("Error to list users " + e.getMessage());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
             } catch (SQLException e) {
@@ -58,9 +58,9 @@ public class ClientDAO implements iClientDAO{
         try {
             ps = conn.prepareStatement(query);
             // El valor de cliente id se introduce sobre ? en la query
-            ps.setInt(1,client.getId());
+            ps.setInt(1, client.getId());
             rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 client.setName(rs.getString("name"));
                 client.setSurName(rs.getString("surname"));
                 client.setMember(rs.getInt("member"));
@@ -68,8 +68,7 @@ public class ClientDAO implements iClientDAO{
             }
         } catch (Exception e) {
             System.out.println("Error to query searchClient " + e.getMessage());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
             } catch (SQLException e) {
@@ -82,39 +81,96 @@ public class ClientDAO implements iClientDAO{
     @Override
     public boolean insertClient(Client client) {
         String names = "";
-        try {
-            System.out.println("Insert client name");
-            names = read.nextLine();
-        }catch (IllegalArgumentException e){
-            System.out.println("The name The name cannot contain numbers or symbols");
-        }
-        System.out.println("Insert client surname");
-        String surnames = read.nextLine();
-        System.out.println("Insert member client");
-        int members = read.nextInt();
+        boolean flag = false;
+        int members;
+        String surnames = "";
+        Result result = getResult(flag);
         PreparedStatement ps;
-        Connection conn = getConnect();
-        String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setString(1, names);
-            ps.setString(2, surnames);
-            ps.setInt(3, members);
-            ps.execute();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error to insert client " + e.getMessage());
-        }
-        finally {
-            try {
-                conn.close();
-            } catch (Exception e) {
-                System.out.println("Error to close data base " + e.getMessage());
-            }
+                Connection conn = getConnect();
+                String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
+                try {
+                    ps = conn.prepareStatement(query);
+                    ps.setString(1, result.names());
+                    ps.setString(2, result.surnames());
+                    ps.setInt(3, result.members());
+                    ps.execute();
+                    return true;
+                } catch (Exception e) {
+                    System.out.println("Error to insert client " + e.getMessage());
+                } finally {
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                        System.out.println("Error to close data base " + e.getMessage());
+                    }
 
-        }
-        return false;
+                }
+                return false;
+
     }
+
+    private Result getResult(boolean flag) {
+        String surnames;
+        int members = 0;
+        String names;
+        do {
+            while (true) {
+                try {
+                    System.out.println("Insert client name");
+                    names = read.nextLine().trim();
+                    if (names.length() < 3) {
+                        System.out.println("The length of the name cannot be less than 3");
+                    } else if (!names.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+                        throw new IllegalArgumentException("\"The text cannot contain numbers or special characters\"");
+                    } else {
+                        System.out.println("Client name charge");
+                        break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("The name cannot contain numbers or symbols " + e.getMessage());
+                }
+            }
+            while (true) {
+                try {
+                    System.out.println("Insert client surname");
+                    surnames = read.nextLine().trim();
+                    if (surnames.length() < 3) {
+                        System.out.println("The length of the name cannot be less than 3");
+                    } else if (!surnames.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+                        throw new IllegalArgumentException("\"The text cannot contain numbers or special characters\"");
+                    } else {
+                        System.out.println("Client surname charge");
+                        break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("The name cannot contain numbers or symbols " + e.getMessage());
+                }
+            }
+            while (true) {
+                try {
+                    System.out.println("Insert member client");
+                    members = read.nextInt();
+                    if (members < 100) {
+                        System.out.println("The number cannot be less than 100");
+//                    } else if (members != client.getMember()) {
+//                        System.out.println("The member number must be different from an existing one");
+                    }else{
+                        flag = true;
+                        break;
+                    }
+                }catch (InputMismatchException e){
+                    System.out.println("The number cannot contain numbers or special characters " + e.getMessage());
+                    read.nextLine();
+                }
+            }
+        }while (!flag);
+        Result result = new Result(names, members, surnames);
+        return result;
+    }
+
+    private record Result(String names, int members, String surnames) {
+    }
+
 
     @Override
     public boolean modifyClient(Client client) {
@@ -153,7 +209,7 @@ public class ClientDAO implements iClientDAO{
             ps = conn.prepareStatement(query);
             ps.setInt(1,client.getId());
             ps.execute();
-            return true;    
+            return true;
         } catch (Exception e) {
             System.out.println("Error to delete client " + e.getMessage());
         }

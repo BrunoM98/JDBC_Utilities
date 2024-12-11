@@ -15,6 +15,17 @@ public class main {
         iClientDAO clientDAO = new ClientDAO();
 
 
+        boolean adde = clientDAO.deleteClient(client3);
+        if (adde){
+            System.out.println("Delete client " + client3);
+        }else{
+            System.out.println("Wasn’t delete client " + client3);
+        }
+
+        System.out.println("List Clients");
+        List<Client> cli = clientDAO.clientList();
+        cli.forEach(System.out::println);
+
         System.out.println("Search client for id");
         System.out.println(client);
         clientDAO.searchClient(client);
@@ -38,17 +49,7 @@ public class main {
             System.out.println("Client not modify: " + client2);
         }
 
-        boolean adde = clientDAO.deleteClient(client3);
-        if (adde){
-            System.out.println("Delete client " + client3);
-        }else{
-            System.out.println("Wasn’t delete client " + client3);
-        }
 
-
-        System.out.println("List Clients");
-        List<Client> cli = clientDAO.clientList();
-        cli.forEach(System.out::println);
 
     }
 }
