@@ -8,10 +8,10 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) {
-        Client client = new Client(3);
-        Client client1 = new Client("Martin","Perez",500);
-        Client client2 = new Client("Palkia" , 1, "Registeel" ,900);
-        Client client3 = new Client(5);
+        Client client = new Client();
+        Client client1 = new Client();
+        Client client2 = new Client();
+        Client client3 = new Client();
         iClientDAO clientDAO = new ClientDAO();
 
 

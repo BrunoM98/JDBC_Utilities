@@ -81,14 +81,25 @@ public class ClientDAO implements iClientDAO{
 
     @Override
     public boolean insertClient(Client client) {
+        String names = "";
+        try {
+            System.out.println("Insert client name");
+            names = read.nextLine();
+        }catch (IllegalArgumentException e){
+            System.out.println("The name The name cannot contain numbers or symbols");
+        }
+        System.out.println("Insert client surname");
+        String surnames = read.nextLine();
+        System.out.println("Insert member client");
+        int members = read.nextInt();
         PreparedStatement ps;
         Connection conn = getConnect();
         String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getSurName());
-            ps.setInt(3,client.getMember());
+            ps.setString(1, names);
+            ps.setString(2, surnames);
+            ps.setInt(3, members);
             ps.execute();
             return true;
         } catch (Exception e) {
@@ -142,7 +153,7 @@ public class ClientDAO implements iClientDAO{
             ps = conn.prepareStatement(query);
             ps.setInt(1,client.getId());
             ps.execute();
-            return true;
+            return true;    
         } catch (Exception e) {
             System.out.println("Error to delete client " + e.getMessage());
         }
