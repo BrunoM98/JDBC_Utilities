@@ -84,7 +84,7 @@ public class ClientDAO implements iClientDAO {
         boolean flag = false;
         int members;
         String surnames = "";
-        Result result = getResult(flag);
+        Result result = getResult(flag,client);
         PreparedStatement ps;
                 Connection conn = getConnect();
                 String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
@@ -109,7 +109,7 @@ public class ClientDAO implements iClientDAO {
 
     }
 
-    private Result getResult(boolean flag) {
+    private Result getResult(boolean flag, Client client) {
         String surnames;
         int members = 0;
         String names;
@@ -152,8 +152,8 @@ public class ClientDAO implements iClientDAO {
                     members = read.nextInt();
                     if (members < 100) {
                         System.out.println("The number cannot be less than 100");
-//                    } else if (members != client.getMember()) {
-//                        System.out.println("The member number must be different from an existing one");
+                    } else if (members != client.getMember()) {
+                        System.out.println("The member number must be different from an existing one");
                     }else{
                         flag = true;
                         break;
