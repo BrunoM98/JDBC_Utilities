@@ -51,6 +51,7 @@ public class ClientDAO implements iClientDAO {
 
     @Override
     public boolean searchClient(Client client) {
+        int id;
         PreparedStatement ps;
         ResultSet rs;
         Connection conn = getConnect();
@@ -58,7 +59,7 @@ public class ClientDAO implements iClientDAO {
         try {
             ps = conn.prepareStatement(query);
             // El valor de cliente id se introduce sobre ? en la query
-            ps.setInt(1, client.getId());
+            ps.setInt(1, searchIDClient());
             rs = ps.executeQuery();
             if (rs.next()) {
                 client.setName(rs.getString("name"));
@@ -86,26 +87,26 @@ public class ClientDAO implements iClientDAO {
         String surnames = "";
         Result result = getResult(flag);
         PreparedStatement ps;
-                Connection conn = getConnect();
-                String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
-                try {
-                    ps = conn.prepareStatement(query);
-                    ps.setString(1, result.names());
-                    ps.setString(2, result.surnames());
-                    ps.setInt(3, result.members());
-                    ps.execute();
-                    return true;
-                } catch (Exception e) {
-                    System.out.println("Error to insert client " + e.getMessage());
-                } finally {
-                    try {
-                        conn.close();
-                    } catch (Exception e) {
-                        System.out.println("Error to close data base " + e.getMessage());
-                    }
+        Connection conn = getConnect();
+        String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, result.names());
+            ps.setString(2, result.surnames());
+            ps.setInt(3, result.members());
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error to insert client " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                System.out.println("Error to close data base " + e.getMessage());
+            }
 
-                }
-                return false;
+        }
+        return false;
 
     }
 
@@ -250,4 +251,56 @@ public class ClientDAO implements iClientDAO {
         return membership;
     }
 
+    private Integer searchIDClient(){
+        int id = 0;
+        while (true) {
+            try {
+                System.out.println("Enter the ID of the client you are searching for.");
+                id = read.nextInt();
+                List<Integer> clientID = listID();
+                if (id <= 0) {
+                    System.out.println("The id cannot be negative or 0");
+                } else if (!clientID.contains(id)) {
+                    System.out.println("The client ID does not exist.");
+                } else {
+                    System.out.println("Client found successfully");
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("The number cannot contain numbers or special characters " + e.getMessage());
+                read.nextLine();
+            }
+        }
+        return id;
+    }
+    
+    private List<Integer> listID(){
+        List<Integer> clientIDS = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = getConnect();
+        String query = "SELECT idclient FROM client";
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Client clients = new Client();
+                clients.setId(rs.getInt("idclient"));
+                clientIDS.add(clients.getId());
+            }
+        } catch (SQLException e) {
+            System.out.println("Error to list ID");
+        }
+        finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error to close data base " +e.getMessage());
+            }
+        }
+        for (Integer elements : clientIDS){
+            System.out.println(elements);
+        }
+        return clientIDS;
+    }
 }
