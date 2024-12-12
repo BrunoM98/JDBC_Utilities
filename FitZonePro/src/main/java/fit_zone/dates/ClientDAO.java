@@ -84,7 +84,7 @@ public class ClientDAO implements iClientDAO {
         boolean flag = false;
         int members;
         String surnames = "";
-        Result result = getResult(flag,client);
+        Result result = getResult(flag);
         PreparedStatement ps;
                 Connection conn = getConnect();
                 String query = "INSERT INTO client(name,surname,member)" + " VALUES(?,?,?)";
@@ -109,7 +109,7 @@ public class ClientDAO implements iClientDAO {
 
     }
 
-    private Result getResult(boolean flag, Client client) {
+    private Result getResult(boolean flag) {
         String surnames;
         int members = 0;
         String names;
@@ -150,9 +150,10 @@ public class ClientDAO implements iClientDAO {
                 try {
                     System.out.println("Insert member client");
                     members = read.nextInt();
+                    List<Integer> membership = memberList();
                     if (members < 100) {
                         System.out.println("The number cannot be less than 100");
-                    } else if (members != client.getMember()) {
+                    } else if (membership.contains(members)) {
                         System.out.println("The member number must be different from an existing one");
                     }else{
                         flag = true;
@@ -170,7 +171,6 @@ public class ClientDAO implements iClientDAO {
 
     private record Result(String names, int members, String surnames) {
     }
-
 
     @Override
     public boolean modifyClient(Client client) {
@@ -221,6 +221,33 @@ public class ClientDAO implements iClientDAO {
             }
         }
         return false;
+    }
+
+    private List<Integer> memberList() {
+        List<Integer> membership = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = getConnect();
+        String query = "SELECT member FROM client ";
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                Client client = new Client();
+                client.setMember(rs.getInt("member"));
+                membership.add(client.getMember());
+            }
+        } catch (SQLException e) {
+            System.out.println("Error to list members " + e.getMessage());
+        }
+        finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error to close data base " + e.getMessage());
+            }
+        }
+        return membership;
     }
 
 }

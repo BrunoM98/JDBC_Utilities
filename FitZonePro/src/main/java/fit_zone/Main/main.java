@@ -13,6 +13,7 @@ public class main {
         Client client2 = new Client();
         Client client3 = new Client();
         iClientDAO clientDAO = new ClientDAO();
+        ClientDAO clientD = new ClientDAO();
 
 
         boolean adde = clientDAO.deleteClient(client3);
