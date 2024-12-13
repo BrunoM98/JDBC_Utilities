@@ -46,6 +46,9 @@ public class ClientDAO implements iClientDAO {
                 System.out.println("Error to close data base " + e.getMessage());
             }
         }
+        for (Client elements: clients){
+            System.out.println(elements);
+        }
         return clients;
     }
 
@@ -65,6 +68,7 @@ public class ClientDAO implements iClientDAO {
                 client.setName(rs.getString("name"));
                 client.setSurName(rs.getString("surname"));
                 client.setMember(rs.getInt("member"));
+                System.out.println(client);
                 return true;
             }
         } catch (Exception e) {
@@ -81,10 +85,6 @@ public class ClientDAO implements iClientDAO {
 
     @Override
     public boolean insertClient(Client client) {
-        String names = "";
-        boolean flag = false;
-        int members;
-        String surnames = "";
         Result result = getResult(flag);
         PreparedStatement ps;
         Connection conn = getConnect();
@@ -175,16 +175,17 @@ public class ClientDAO implements iClientDAO {
 
     @Override
     public boolean modifyClient(Client client) {
+        Result result = getResult(flag);
         PreparedStatement ps;
         Connection conn = getConnect();
         // name 1 surname 2 member 3 id 4
         String query = "UPDATE client SET name=?, surname=?, member=? " + " WHERE idclient = ?";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getSurName());
-            ps.setInt(3,client.getMember());
-            ps.setInt(4,client.getId());
+            ps.setString(1, result.names);
+            ps.setString(2, result.surnames);
+            ps.setInt(3,result.members);
+            ps.setInt(4,searchIDClient());
             ps.execute();
             return true;
         } catch (Exception e) {
@@ -208,8 +209,9 @@ public class ClientDAO implements iClientDAO {
         String query = "DELETE FROM client WHERE idclient = ?";
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1,client.getId());
+            ps.setInt(1,searchIDClient());
             ps.execute();
+            System.out.println("client deleted " + client);
             return true;
         } catch (Exception e) {
             System.out.println("Error to delete client " + e.getMessage());
@@ -255,7 +257,7 @@ public class ClientDAO implements iClientDAO {
         int id = 0;
         while (true) {
             try {
-                System.out.println("Enter the ID of the client you are searching for.");
+                System.out.println("Enter the ID of the client");
                 id = read.nextInt();
                 List<Integer> clientID = listID();
                 if (id <= 0) {
@@ -263,7 +265,7 @@ public class ClientDAO implements iClientDAO {
                 } else if (!clientID.contains(id)) {
                     System.out.println("The client ID does not exist.");
                 } else {
-                    System.out.println("Client found successfully");
+                    System.out.println("The process worked successfully.");
                     break;
                 }
             } catch (InputMismatchException e) {
@@ -297,9 +299,6 @@ public class ClientDAO implements iClientDAO {
             } catch (SQLException e) {
                 System.out.println("Error to close data base " +e.getMessage());
             }
-        }
-        for (Integer elements : clientIDS){
-            System.out.println(elements);
         }
         return clientIDS;
     }
