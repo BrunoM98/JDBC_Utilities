@@ -52,7 +52,7 @@ public class main {
                         System.out.println("Exit application");
                         break;
                     default:
-                        System.out.println("Incorrect number");
+                        System.out.println("The number is not an option");
                         break;
                 }
             } catch (IllegalArgumentException e) {
