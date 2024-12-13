@@ -211,7 +211,6 @@ public class ClientDAO implements iClientDAO {
             ps = conn.prepareStatement(query);
             ps.setInt(1,searchIDClient());
             ps.execute();
-            System.out.println("client deleted " + client);
             return true;
         } catch (Exception e) {
             System.out.println("Error to delete client " + e.getMessage());
