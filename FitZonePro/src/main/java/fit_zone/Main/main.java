@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         Client client = new Client();
-        iClientDAO clientDAO = new ClientDAO();
+        ClientDAO clientDAO = new ClientDAO();
         Scanner read= new Scanner(System.in);
         int option = 0;
 
@@ -50,6 +50,7 @@ public class main {
                         break;
                     case 6:
                         System.out.println("Exit application");
+                        clientDAO.goodBye();
                         break;
                     default:
                         System.out.println("The number is not an option");

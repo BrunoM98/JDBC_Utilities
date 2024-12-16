@@ -301,4 +301,54 @@ public class ClientDAO implements iClientDAO {
         }
         return clientIDS;
     }
+
+    public void goodBye(){
+        int rows = 7;
+        int cols = 17;
+
+        char[][] matrix = new char[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = ' ';
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            matrix[i][0] = '*';
+            if (i == 0 || i == 3 || i == 6) {
+                for (int j = 1; j <= 3; j++) {
+                    matrix[i][j] = '*';
+                }
+            }
+            if (i == 1 || i == 2 || i == 4 || i == 5) {
+                matrix[i][3] = '*';
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            matrix[i][6] = '*';
+            matrix[i][10] = '*';
+        }
+        for (int i = 4; i < rows; i++) {
+            matrix[i][8] = '*';
+        }
+
+        for (int i = 0; i < rows; i++) {
+            matrix[i][13] = '*';
+            if (i == 0 || i == 3 || i == 6) {
+                for (int j = 14; j <= 16; j++) {
+                    matrix[i][j] = '*';
+                }
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
+
+
