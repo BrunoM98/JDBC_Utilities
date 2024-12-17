@@ -349,6 +349,14 @@ public class ClientDAO implements iClientDAO {
             System.out.println();
         }
     }
+    private static void waitPrint(String s) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.err.println("The pause was interrupted: " + e.getMessage());
+        }
+        System.out.print(s);
+    }
 }
 
 
