@@ -45,6 +45,7 @@ public class main {
                         break;
                     case 4:
                         clientDAO.modifyClient(client);
+                        break;
                     case 5:
                         clientDAO.deleteClient(client);
                         break;
