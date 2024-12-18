@@ -349,6 +349,7 @@ public class ClientDAO implements iClientDAO {
             System.out.println();
         }
     }
+
     private static void waitPrint(String s) {
         try {
             Thread.sleep(500);
