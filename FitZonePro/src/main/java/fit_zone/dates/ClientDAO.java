@@ -161,7 +161,7 @@ public class ClientDAO implements iClientDAO {
                         break;
                     }
                 }catch (InputMismatchException e){
-                    System.out.println("The number cannot contain numbers or special characters " + e.getMessage());
+                    System.out.println("The number cannot contain letters or special characters " + e.getMessage());
                     read.nextLine();
                 }
             }
@@ -193,7 +193,6 @@ public class ClientDAO implements iClientDAO {
         }
         finally {
             try {
-
                 conn.close();
             } catch (SQLException e) {
                 System.out.println("Error to close data base");
@@ -312,7 +311,6 @@ public class ClientDAO implements iClientDAO {
                 matrix[i][j] = ' ';
             }
         }
-
         for (int i = 0; i < rows; i++) {
             matrix[i][0] = '*';
             if (i == 0 || i == 3 || i == 6) {
@@ -344,7 +342,7 @@ public class ClientDAO implements iClientDAO {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.print(matrix[i][j]);
+                waitPrint(String.valueOf(matrix[i][j]));
             }
             System.out.println();
         }
@@ -352,7 +350,7 @@ public class ClientDAO implements iClientDAO {
 
     private static void waitPrint(String s) {
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             System.err.println("The pause was interrupted: " + e.getMessage());
         }

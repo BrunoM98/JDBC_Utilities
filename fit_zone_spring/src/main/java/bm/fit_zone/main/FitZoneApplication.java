@@ -1,4 +1,4 @@
-package bm.fit_zone;
+package bm.fit_zone.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
