@@ -3,6 +3,7 @@ package bm.fit_zone;
 import bm.fit_zone.Service.ClientService;
 import bm.fit_zone.menu.Menu;
 import bm.fit_zone.model.Client;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.slf4j.Logger;
 import bm.fit_zone.Service.IClientService;
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,62 @@ public class FitZoneApplication implements CommandLineRunner {
                 else
                     logger.info("Client not Exist");
             }
+            case 3 -> {
+                logger.info(" Save Client" + nl);
+                logger.info("Name");
+                String name = read.nextLine();
+                logger.info("SurName");
+                String surName = read.nextLine();
+                logger.info("Memer number");
+                int member = Integer.parseInt(read.nextLine());
+                Client client = new Client();
+                client.setName(name);
+                client.setSurname(surName);
+                client.setMember(member);
+                clientService.saveClient(client);
+                logger.info(" Save a Client " + client + nl);
+            }
+            case 4 -> {
+                logger.info("Modify Client" + nl);
+                logger.info("Set ID");
+                int idClient = Integer.parseInt(read.nextLine());
+                Client client = clientService.serchClient(idClient);
+
+                if(client != null) {
+                    logger.info("Name");
+                    String name = read.nextLine();
+                    logger.info("SurName");
+                    String surName = read.nextLine();
+                    logger.info("Member Number");
+                    int member = Integer.parseInt(read.nextLine());
+
+                    client.setName(name);
+                    client.setSurname(surName);
+                    client.setMember(member);
+                    clientService.saveClient(client);
+                    logger.info("Modify Client " + client + nl);
+                }else{
+                    logger.info(" Client not Exist " + nl);
+                }
+            }
+            case 5 -> {
+                logger.info(nl + " Delete Client " + nl);
+                logger.info("ID Client");
+                int idClient = Integer.parseInt(read.nextLine());
+                Client client = clientService.serchClient(idClient);
+                if(client != null){
+                    clientService.deleteClient(client);
+                    logger.info("Client Delete" + nl);
+                } else {
+                    logger.info("Client Not Exist");
+                }
+
+            }
+            case 6 -> {
+                logger.info("Exit");
+                out = true;
+            }
+            default -> logger.info("Choose a Correct Option" + option + nl);
 
         }
         return out;
