@@ -20,7 +20,7 @@ public class ClientService implements IClientService {
 
     @Override
     public List<Client> clientList() {
-        List<Client> client= iClietRepository.findAll();
+        List<Client> client = iClietRepository.findAll();
 
         return client;
     }

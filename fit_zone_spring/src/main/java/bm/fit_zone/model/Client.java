@@ -23,9 +23,9 @@ public class Client {
 // Generate a variable for the ID.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer id;
+    private Integer idclient;
     private String name;
-    private String surName;
+    private String surname;
     private Integer member;
 
 
