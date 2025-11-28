@@ -1,5 +1,6 @@
 package bm.fit_zone;
 
+import bm.fit_zone.Service.ClientService;
 import bm.fit_zone.menu.Menu;
 import bm.fit_zone.model.Client;
 import org.slf4j.Logger;
@@ -64,12 +65,26 @@ public class FitZoneApplication implements CommandLineRunner {
     private boolean executeOption(Scanner read, int option){
         boolean out = false;
         switch (option){
-            case 1:
+            case 1 -> {
                 logger.info(nl + "Client List " + nl);
 
                 List<Client> clients = clientService.clientList();
 
                 clients.forEach(client -> logger.info("{}{}", client.toString(), nl));
+            }
+            case 2 -> {
+                logger.info(nl + " Search Client for ID " + nl);
+
+                int idClient = Integer.parseInt(read.nextLine());
+
+                Client client = clientService.serchClient(idClient);
+
+                if (client != null)
+                    logger.info(" Client Searching Successful " + client +nl);
+                else
+                    logger.info("Client not Exist");
+            }
+
         }
         return out;
     }
