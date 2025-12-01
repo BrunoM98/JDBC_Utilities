@@ -109,7 +109,7 @@ public class FitZoneApplication implements CommandLineRunner {
                 if(client != null) {
                     logger.info("Name");
                     String name = read.nextLine();
-                    logger.info("SurName");
+                    logger.info("Surname");
                     String surName = read.nextLine();
                     logger.info("Member Number");
                     int member = Integer.parseInt(read.nextLine());

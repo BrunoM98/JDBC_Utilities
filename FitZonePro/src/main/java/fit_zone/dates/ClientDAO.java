@@ -251,10 +251,20 @@ public class ClientDAO implements iClientDAO {
         return membership;
     }
 
-    private Integer searchIDClient(){
+    private Integer searchIDClient() {
         int id = 0;
         while (true) {
             try {
+                System.out.print("Are you sure remove a client? (y/n): ");
+                String option = read.next().toLowerCase();
+
+                if (option.equals("n")) {
+                    System.out.println("Exiting client delete...");
+                    break;
+                }
+
+                System.out.println("List Only Client");
+                clientList();
                 System.out.println("Enter the ID of the client");
                 id = read.nextInt();
                 List<Integer> clientID = listID();
@@ -270,6 +280,7 @@ public class ClientDAO implements iClientDAO {
                 System.out.println("The number cannot contain numbers or special characters " + e.getMessage());
                 read.nextLine();
             }
+
         }
         return id;
     }
