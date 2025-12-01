@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
+import javax.swing.*;
 
 public class Form {
+    private JPanel panel1;
 }
