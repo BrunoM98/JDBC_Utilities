@@ -3,6 +3,9 @@ import javax.swing.*;
 
 public class Form extends JFrame{
     private JPanel panel1;
+    private JPanel panel2;
+    private JPanel panel3;
+    private JTextField textcamp;
 
     public Form() {
         initilizingForm();
