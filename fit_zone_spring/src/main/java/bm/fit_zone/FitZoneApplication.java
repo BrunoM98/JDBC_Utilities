@@ -16,7 +16,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class FitZoneApplication implements CommandLineRunner {
 
 
