@@ -10,13 +10,42 @@
          <font>
             <Font name="Arial Black" size="25.0" />
          </font></Label>
-      <TableView fx:id="taskTable" layoutX="45.0" layoutY="100.0" prefHeight="200.0" prefWidth="487.0">
+      <TableView fx:id="taskTable" layoutX="204.0" layoutY="100.0" onMouseClicked="#addTskForm" prefHeight="200.0" prefWidth="387.0">
         <columns>
           <TableColumn fx:id="idTaskColumn" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="nameTaskColumn" prefWidth="118.0" text="Task" />
-            <TableColumn fx:id="responsiveTaskColumn" prefWidth="133.0" text="Responsive" />
-            <TableColumn fx:id="statusTaskColumn" prefWidth="160.0" text="Status" />
+            <TableColumn fx:id="responsiveTaskColumn" prefWidth="99.0" text="Responsible" />
+            <TableColumn fx:id="statusTaskColumn" prefWidth="123.0" text="Status" />
         </columns>
       </TableView>
+      <AnchorPane layoutX="6.0" layoutY="100.0" prefHeight="200.0" prefWidth="188.0">
+         <children>
+            <Label layoutX="27.0" layoutY="14.0" text="TASK" textFill="#0bd7cd">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="27.0" layoutY="79.0" prefHeight="17.0" prefWidth="86.0" text="RESPONSIBLE" textFill="#0bd7cd">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="27.0" layoutY="148.0" prefHeight="17.0" prefWidth="55.0" text="STATUS" textFill="#0bd7cd">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="nameTaskText" layoutX="15.0" layoutY="39.0" />
+            <TextField fx:id="responsibleTaskText" layoutX="15.0" layoutY="100.0" />
+            <TextField fx:id="statusTaskText" layoutX="15.0" layoutY="165.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="12.0" layoutY="313.0" prefHeight="66.0" prefWidth="579.0">
+         <children>
+            <Button fx:id="addButton" layoutX="69.0" layoutY="21.0" mnemonicParsing="false" onAction="#addTask" style="-fx-background-color: #0e73bc;" text="ADD" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button layoutX="461.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#refreshTaskButton" style="-fx-background-color: #0e73bc;" text="REFRESH" textFill="WHITE" />
+            <Button layoutX="204.0" layoutY="21.0" mnemonicParsing="false" onAction="#updateTaskButton" style="-fx-background-color: #0e73bc;" text="UPDATE" textFill="WHITE" />
+            <Button layoutX="333.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#deleteTaskButton" style="-fx-background-color: eb0808;" text="DELETE" textFill="#f2efef" />
+         </children></AnchorPane>
    </children>
 </AnchorPane>
