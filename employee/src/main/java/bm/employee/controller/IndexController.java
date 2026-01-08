@@ -42,7 +42,7 @@ public class IndexController {
     public String showADD() {
         return "add"; // add.jsp
     }
-    
+
     // employeForm nombre con el que el objeto se guarda en el Model
     // maneja el envío del formulario de alta de empleados.
     // recibe los datos mediante POST, los mapea a un objeto Employee
