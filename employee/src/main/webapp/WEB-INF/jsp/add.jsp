@@ -6,7 +6,7 @@
         <h3>ADD Employee</h3>
     </div>
     <div>
-        <form action="${urlADD}" modelAttribute="employeeForm" method="post">
+        <form action="/employee/ADD" modelAttribute="employeeForm" method="post">
             <div class="mb-3">
                 <label for="nameEmployee" class="form-label">Email address</label>
                 <input type="text" class="form-control" id="nameEmployee" name="nameEmployee" required="true">

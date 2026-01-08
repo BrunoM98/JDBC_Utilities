@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class IndexController {
     public String showADD() {
         return "add"; // add.jsp
     }
+    
     // employeForm nombre con el que el objeto se guarda en el Model
     // maneja el envío del formulario de alta de empleados.
     // recibe los datos mediante POST, los mapea a un objeto Employee
@@ -55,6 +57,14 @@ public class IndexController {
         // Redirige a la URL principal para forzar una nueva petición GET
         // y recargar la lista de empleados actualizada.
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEdit(@RequestParam int idEmployee, ModelMap modelMap){
+        Employee employee = employeeService.employeeIDSearch(idEmployee);
+        logger.info("Edit Employee" + employee);
+        modelMap.put("employees" , employee);
+        return "edit"; //muestra la pagina edit.jsp
 
     }
 
