@@ -30,7 +30,7 @@ public class IndexController {
 //        por cada objeto de tipo empleado se imprime la informacion en consola
         employeeList.forEach((employee -> logger.info(employee.toString())));
 //        compartimos el modelpmap con la vista de index
-        modelMap.put("employee", employeeList);
+        modelMap.put("employees", employeeList);
         return "index"; // index.jsp
     }
 }
