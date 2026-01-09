@@ -63,7 +63,7 @@ public class IndexController {
     public String showEdit(@RequestParam int idEmployee, ModelMap modelMap){
         Employee employee = employeeService.employeeIDSearch(idEmployee);
         logger.info("Edit Employee" + employee);
-        modelMap.put("employees" , employee);
+        modelMap.put("employee" , employee);
         return "edit"; //muestra la pagina edit.jsp
 
     }

@@ -28,7 +28,7 @@
                         <td class="text-center">
                             <c:set var="urlEdit">
                                 <c:url value="${application.contextPath}/edit">
-                                    <c:param name="idEmployee" value="employee.idEmployee"/>
+                                    <c:param name="idEmployee" value="${employee.idEmployee}"/>
                                 </c:url>
                             </c:set>
                             <a href="${urlEdit}" class="btn btn-warning btn-sm me-3">Edit</a>
