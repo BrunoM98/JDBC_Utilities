@@ -1,7 +1,3 @@
-<!--se utiliza el archivo html por que intelliJ no soporta jsp sin su version paga por lo que es
-la forma de trabajar sin tenerla y como en nuestra properties fijamos que solo lea los archivos jsp
-este archivo no lo compila-->
-
 <%@ include file="common/headboard.jsp"%>
 <%@ include file="common/navBar.jsp"%>
 <div class="container">
@@ -27,16 +23,21 @@ este archivo no lo compila-->
                         <td>
                             <fmt:setLocale value="en_US"/>
                             <fmt:formatNumber type="currency"
-                                               value="${employee.salary}"/>
+                                              value="${employee.salary}"/>
                         </td>
                         <td class="text-center">
                             <c:set var="urlEdit">
                                 <c:url value="${application.contextPath}/edit">
-                                    <c:param name="idEmployee" value="employee.idEmployee"/>
+                                    <c:param name="idEmployee" value="${employee.idEmployee}"/>
                                 </c:url>
                             </c:set>
-                            <a href="${urlEdit}"
-                               class="btn btn-warning btn-sm me-3">Edit</a>
+                            <a href="${urlEdit}" class="btn btn-warning btn-sm me-3">Edit</a>
+                            <c:set var="urlDelete">
+                                <c:url value="${application.contextPath}/delete">
+                                    <c:param name="idEmployee" value="${employee.idEmployee}"/>
+                                </c:url>
+                            </c:set>
+                            <a href="${urlDelete}" class="btn btn-danger btn-sm me-3">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -45,4 +46,4 @@ este archivo no lo compila-->
         </div>
     </div>
 </div>
-<%@ include file=common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>

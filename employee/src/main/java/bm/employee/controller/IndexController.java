@@ -68,4 +68,18 @@ public class IndexController {
 
     }
 
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@ModelAttribute("employeeForm")  Employee employee){
+        logger.info("Update Employee" + employee);
+        employeeService.saveEmployee(employee);
+        return "redirect:/"; // redirigimos al controlador a la ruta de inicio
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@ModelAttribute("employeeForm")Employee employee){
+        logger.info("Delete Employee", employee);
+        employeeService.deleteEmployee(employee);
+        return "redirect:/"; // redirigimos al controlador a la ruta de inicio despues de eliminar al empleado
+    }
 }
