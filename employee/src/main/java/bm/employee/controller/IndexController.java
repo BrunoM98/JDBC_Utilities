@@ -76,6 +76,9 @@ public class IndexController {
         return "redirect:/"; // redirigimos al controlador a la ruta de inicio
     }
 
+//    el .GET en esta funcion deberia cambiarse por un .POST ya que es mejor crear un nuevo file delete.jsp
+//    para que sea reautilizado en un proyecto mas grande pero en este caso ya que terminamos con este metodo
+//    vamos a dejar el .GET que funciona.
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@ModelAttribute("employeeForm")Employee employee){
         logger.info("Delete Employee", employee);
