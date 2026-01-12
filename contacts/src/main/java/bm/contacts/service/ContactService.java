@@ -2,15 +2,21 @@ package bm.contacts.service;
 
 import bm.contacts.entity.Contact;
 import bm.contacts.repository.IRepositoryContact;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ContactService implements IContactService{
 
-    @Autowired
-    private IRepositoryContact iRepositoryContact;
+
+    //“El uso de @Autowired sobre interfaces es correcto,
+    // pero se recomienda constructor injection para mayor testabilidad y claridad de dependencias.”
+
+    private final IRepositoryContact iRepositoryContact;
+
+    public ContactService(IRepositoryContact iRepositoryContact) {
+        this.iRepositoryContact = iRepositoryContact;
+    }
 
     @Override
     public List<Contact> contactList() {
@@ -20,7 +26,8 @@ public class ContactService implements IContactService{
     @Override
     public Contact searchContactID(Integer idContact) {
 
-        return iRepositoryContact.findById(idContact).orElse(null);
+        return iRepositoryContact.findById(idContact).
+                orElseThrow(() -> new RuntimeException("Contact not Exist"));
 
     }
 
