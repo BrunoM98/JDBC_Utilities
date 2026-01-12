@@ -32,4 +32,4 @@ import static org.mockito.Mockito.when;
             assertEquals(1, result.size());
         }
     }
-}
+
