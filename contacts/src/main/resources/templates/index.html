@@ -1,42 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Contacts System</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headboard::Head-Board(title='Contacts Application')}"></head>
 <body>
-<!--menu de navegacion-->
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dar bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Contacts Application</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/add">Add Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<div th:replace="~{fragments/navBar::nav-section-bar}"></div>
 <!--div para la tabla-->
 <div class="container">
     <div class="container text-center" style="margin:30px">
         <h3>Contacts System</h3>
     </div>
     <div class="container">
-    <table class="table table-striped table-hover align-middle">
+    <table class="table table-striped table-hover align-middle table-border">
         <thead  class="table-dark table-center">
         <tr>
             <th scope="col">Id</th>
@@ -46,18 +19,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>55555</td>
-            <td>@mdo</td>
+        <tr th:each="contact: ${contacts}">
+            <th th:text="${contact.idContact}" scope="row"></th>
+            <td th:text="${contact.name}"></td>
+            <td th:text="${contact.phone}"></td>
+            <td th:text="${contact.email}"></td>
         </tr>
         </tbody>
     </table>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI">
-</script>
+<div th:replace="~{fragments/footPage::foot-page-section}"></div>
 </body>
 </html>
