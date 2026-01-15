@@ -43,7 +43,7 @@ public class ContactsController {
         contactService.saveContact(contact);
         return "redirect:/"; // redireccionamos al path de inicio
     }
-    @GetMapping("/edit")
+    @GetMapping("/edit/{id}")
     public String editC(@PathVariable(value = "id")int idContact ,ModelMap modelMap){
         Contact contact = contactService.searchContactID(idContact);
         logger.info("Contact Edit{}", contact);
