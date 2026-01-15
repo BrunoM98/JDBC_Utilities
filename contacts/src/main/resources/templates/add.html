@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headboard::Head-Board(title='Contacts Add')}"></head>
+<body>
+<div th:replace="~{fragments/navBar::nav-section-bar}"></div>
+<div class="container">
+    <div class="container text-center" style="margin:30px">
+        <h3>Add Contact</h3>
+    </div>
+    <div class="container">
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning btn-sm me-3">ADD</button>
+                <a href="/" class="btn btn-danger btn-sm">BACK</a>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<div th:replace="~{fragments/footPage::foot-page-section}"></div>
+</body>
+</html>

@@ -28,10 +28,10 @@ public class ContactsController {
         modelMap.put("contacts", contactLis);
         return "index"; //index.html
     }
-//    @GetMapping("/add")
-//    public String addContact(){
-//        Contact contact = new Contact();
-//
-//    }
+    @GetMapping("/add")
+    public String addContact(){
+        Contact contact = new Contact();
+        return "add";
+    }
 
 }
