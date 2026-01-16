@@ -51,4 +51,20 @@ public class ContactsController {
         return "edit";
     }
 
+    @PostMapping("/edit")
+    public String editC(@ModelAttribute("contact")Contact contact){
+        logger.info("Save Contact" + contact);
+        contactService.saveContact(contact);
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteC(@PathVariable(value = "id") int idContact){
+        Contact contact = new Contact();
+        contact.setIdContact(idContact);
+        contactService.deleteContact(contact);
+        return "redirect:/";
+
+    }
+
 }
